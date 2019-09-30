@@ -2,13 +2,15 @@
 import os
 import requests
 from io import BytesIO
+
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
+
 from const import images_dir
 
 
 class ImageForCover:
     """ Родительский класс для всех изображений,
-        которые будут расположены на обложке """
+        которые будут расположены на обложке сообщества"""
 
     def __init__(self, h, w):
         self.h = h
@@ -42,7 +44,7 @@ class Cover(ImageForCover):
         font = ImageFont.truetype(font_path, font_size)
         draw = ImageDraw.Draw(self.image)
         w, h = draw.textsize(text, font)
-        if width == None:
+        if width is None:
             width = (self.w-w)/2
         draw.text((width, height), text, font=font, fill='black')
 

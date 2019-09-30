@@ -1,11 +1,14 @@
+# -*- coding: utf-8 -*-
 import os
 import requests
 from re import search
 from random import randint
 from time import time
 from string import punctuation
-from flask import Flask, request
+
 import vk
+from flask import Flask, request
+
 from const import confirmation_token, token, group_id, images_dir, fonts_dir
 from cover_editor import Cover, Avatar
 
@@ -44,6 +47,8 @@ def create_cover(data):
 
 
 def upload_cover(api):
+    """ Функция загрузки обложки сообщества на сервер """
+
     upload_url = get_upload_url(api)
     cover_file = {'photo': open(os.path.join(images_dir, 'final.jpg'),
                                 'rb')}
@@ -68,10 +73,9 @@ def change_cover(user_url, api, current_user_id):
         data = api.users.get(access_token=token,
                              user_ids=str(user_id),
                              fields='photo_100, photo_200')[0]
-        try:
-            data['deactivated']
+        if 'deactivated' in data:
             message = 'Данный пользователь был удален.'
-        except KeyError:
+        else:
             create_cover(data)
             upload_cover(api)
             message = f'Пользователь {data["first_name"]} \
@@ -94,7 +98,7 @@ def change_cover(user_url, api, current_user_id):
 
 @app.route('/test/', methods=['POST'])
 def main():
-    """ Функция ожидания и обработки запросов от vk"""
+    """ Функция обработки запросов от vk """
 
     data = request.get_json()
     api = get_api()

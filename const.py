@@ -1,9 +1,10 @@
+# -*- coding: utf-8 -*-
 import os
 
 
-token = '17b2d874dcb5cbb90bbe2d0e33adb248527e691f99b5baea69c376754325bdc4cb92d491af5befcf78e29'
-confirmation_token = 'd8c8dfc5'
-group_id = '186197153'
-base_dir = 'mysite'
+token = 'Here should be your access token'
+confirmation_token = 'Here should be your confirmation token'
+group_id = 'Here should be your group id'
+base_dir = 'Here should be your project root dir'
 images_dir = os.path.join(base_dir, 'images')
 fonts_dir = os.path.join(base_dir, 'fonts')
